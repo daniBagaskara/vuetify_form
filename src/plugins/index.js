@@ -14,4 +14,12 @@ export function registerPlugins (app) {
     .use(vuetify)
     .use(router)
     .use(pinia)
+  
+  router.afterEach((to) => {
+    const defaultTitle = "MyForm Vue";
+    const pageTitle = to.meta?.title;
+    document.title = pageTitle
+      ? `${pageTitle} | ${defaultTitle}`
+      : defaultTitle;
+  });
 }
