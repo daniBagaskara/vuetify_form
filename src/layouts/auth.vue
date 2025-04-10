@@ -1,9 +1,7 @@
 <template>
   <v-layout>
     <v-main>
-      <v-container fluid fill-height class="d-flex align-center justify-center">
-        <router-view />
-      </v-container>
+      <router-view />
     </v-main>
   </v-layout>
 </template>
