@@ -23,11 +23,11 @@ meta:
               <v-text-field
                 clearable
                 variant="underlined"
-                v-model="form.name"
+                v-model="form.fullname"
                 label="Name"
                 required
-                :error-messages="v$.name.$errors.map((e) => e.$message)"
-                @blur="v$.name.$touch()"
+                :error-messages="v$.fullname.$errors.map((e) => e.$message)"
+                @blur="v$.fullname.$touch()"
               ></v-text-field>
               <v-text-field
                 clearable
@@ -43,27 +43,40 @@ meta:
                 variant="underlined"
                 v-model="form.password"
                 label="Password"
-                type="password"
                 required
-                :error-messages="v$.password.$errors.map((e) => e.$message)"
                 @blur="v$.password.$touch()"
+                @click:append="showPassword = !showPassword"
+                :error-messages="v$.password.$errors.map((e) => e.$message)"
+                :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+                :type="showPassword ? 'text' : 'password'"
               ></v-text-field>
               <v-text-field
                 clearable
                 variant="underlined"
-                v-model="form.confirmPassword"
+                v-model="form.retype_password"
                 label="Confirm Password"
-                type="password"
                 required
                 :error-messages="
-                  v$.confirmPassword.$errors.map((e) => e.$message)
+                  v$.retype_password.$errors.map((e) => e.$message)
                 "
-                @blur="v$.confirmPassword.$touch()"
+                :type="retype_password ? 'text' : 'password'"
+                :append-icon="retype_password ? 'mdi-eye-off' : 'mdi-eye'"
+                @blur="v$.retype_password.$touch()"
+                @click:append="retype_password = !retype_password"
               ></v-text-field>
-              <v-btn @click="register" block color="primary">Register</v-btn>
+              <v-btn @click="register" block color="primary" :loading="loading">
+                Register
+              </v-btn>
             </v-form>
           </v-card-text>
         </v-card>
+        <v-snackbar
+          v-model="showSuccess"
+          :timeout="4000"
+          color="success"
+        >
+          Registrasi berhasil! Kamu akan diarahkan ke halaman login.
+        </v-snackbar>
         <div class="d-flex align-center justify-space-between mt-2">
           <p class="mb-0">Already have an account?</p>
           <v-btn variant="text" color="primary" to="/login">Login</v-btn>
@@ -71,37 +84,62 @@ meta:
       </v-col>
     </v-row>
   </v-container>
+  <v-overlay v-model="loading"></v-overlay>
 </template>
 
 <script setup>
 import useVuelidate from "@vuelidate/core";
 import { required, minLength, sameAs, email } from "@vuelidate/validators";
+import axios from "axios";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+const loading = ref(false);
+const showPassword = ref(false);
+const retype_password = ref(false);
+const showSuccess = ref(false);
 
 const form = reactive({
-  name: "",
+  fullname: "",
   email: "",
   password: "",
-  confirmPassword: "",
+  retype_password: "",
 });
 
+const sameAsPassword = computed(() => form.retype_password);
+
 const rules = {
-  name: { required },
+  fullname: { required },
   email: { required, email },
   password: { required, minLength: minLength(6) },
-  confirmPassword: {
+  retype_password: {
     required,
-    sameAsPassword: sameAs(() => form.password),
+    sameAsPassword: sameAs(sameAsPassword),
   },
 };
 
 const v$ = useVuelidate(rules, form);
 
-const register = () => {
+const register = async () => {
   v$.value.$touch();
   if (!v$.value.$invalid) {
-    // Form is valid, proceed with registration
-    console.log("Form submitted:", form);
-    // Make API call to register user
+    try {
+      loading.value = true;
+      const response = await axios.post(
+        "http://localhost:3000/auth/register",
+        form
+      );
+      if (response.status === 200) {
+        showSuccess.value = true
+        router.push("/login");
+      } else {
+      }
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      loading.value = false;
+    }
   }
 };
 </script>
