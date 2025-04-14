@@ -2,6 +2,7 @@
 meta:
   layout: auth
   title: Login
+  auth: false
 </route>
 
 <template>

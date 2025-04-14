@@ -1,3 +1,9 @@
+<route lang="yaml">
+meta:
+  title: Dashboard
+  auth: true
+</route>
+
 <template>
   <div>
     <h1>Welcome, {{ auth.getFullName }}</h1>
