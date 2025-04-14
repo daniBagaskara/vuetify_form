@@ -68,13 +68,12 @@ meta:
                 Register
               </v-btn>
             </v-form>
+            <v-alert v-if="errorMessage" type="error" dismissible class="mt-3">
+              {{ errorMessage }}
+            </v-alert>
           </v-card-text>
         </v-card>
-        <v-snackbar
-          v-model="showSuccess"
-          :timeout="4000"
-          color="success"
-        >
+        <v-snackbar v-model="showSuccess" :timeout="10000" color="success">
           Registrasi berhasil! Kamu akan diarahkan ke halaman login.
         </v-snackbar>
         <div class="d-flex align-center justify-space-between mt-2">
@@ -98,6 +97,7 @@ const loading = ref(false);
 const showPassword = ref(false);
 const retype_password = ref(false);
 const showSuccess = ref(false);
+const errorMessage = ref(null);
 
 const form = reactive({
   fullname: "",
@@ -123,20 +123,36 @@ const v$ = useVuelidate(rules, form);
 const register = async () => {
   v$.value.$touch();
   if (!v$.value.$invalid) {
+    loading.value = true;
     try {
-      loading.value = true;
       const response = await axios.post(
         "http://localhost:3000/auth/register",
         form
       );
       if (response.status === 200) {
-        showSuccess.value = true
-        router.push("/login");
-      } else {
+        showSuccess.value = true;
+        setTimeout(() => {
+          router.push("/login");
+        }, 3000);
       }
+
       console.log(response);
     } catch (error) {
-      console.log(error);
+      if (error.response) {
+        if (error.response.status === 409) {
+          errorMessage.value = "Email already exists.";
+        } else if (error.response.status === 428) {
+          errorMessage.value = "Invalid input, please check your data.";
+        } else if (error.response.status === 500) {
+          errorMessage.value = "Server error. Please try again later.";
+        } else {
+          errorMessage.value = "An unexpected error occurred.";
+        }
+        console.log("Server response error:", error.response.data);
+      } else {
+        errorMessage.value = "Network or unknown error.";
+        console.log("General error:", error);
+      }
     } finally {
       loading.value = false;
     }

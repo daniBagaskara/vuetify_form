@@ -39,8 +39,13 @@ meta:
                 :error-messages="v$.password.$errors.map((e) => e.$message)"
                 @blur="v$.password.$touch()"
               ></v-text-field>
-              <v-btn @click="login" block color="secondary">Register</v-btn>
+              <v-btn @click="login" block color="secondary" :loading="loading"
+                >Login</v-btn
+              >
             </v-form>
+            <v-alert v-if="errorMessage" type="error" dismissible class="mt-3">
+              {{ errorMessage }}
+            </v-alert>
           </v-card-text>
         </v-card>
         <div class="d-flex align-center justify-space-between mt-2">
@@ -56,11 +61,21 @@ meta:
       </v-col>
     </v-row>
   </v-container>
+  <v-overlay v-model="loading"></v-overlay>
 </template>
 
 <script setup>
 import useVuelidate from "@vuelidate/core";
 import { required, minLength, email } from "@vuelidate/validators";
+import axios from "axios";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { useAuthStore } from "@/stores/auth";
+
+const auth = useAuthStore();
+const router = useRouter();
+const loading = ref(false);
+const errorMessage = ref(false);
 
 const form = reactive({
   email: "",
@@ -80,11 +95,28 @@ const login = async () => {
   }
 
   const { email, password } = form;
+  loading.value = true;
   try {
-    const response = await axios.post("/auth/login", { email, password });
-    console.log(response);
+    const response = await axios.post("http://localhost:3000/auth/login", {
+      email,
+      password,
+    });
+    if (response.status === 200) {
+      auth.setFullName(response.data.fullname);
+      auth.setAccessToken(response.data.accessToken);
+      auth.setRefreshToken(response.data.refreshToken);
+
+      router.push("/dashboard");
+    }
   } catch (error) {
-    console.log(error);
+    console.log(error.response);
+    if (error.response.status === 403) {
+      errorMessage.value = "Invalid email or password";
+    } else {
+      errorMessage.value = "An error occurred. Please try again.";
+    }
+  } finally {
+    loading.value = false;
   }
 };
 </script>
