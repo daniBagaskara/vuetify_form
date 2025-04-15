@@ -8,7 +8,7 @@
 import { createRouter, createWebHistory } from 'vue-router/auto'
 import { setupLayouts } from 'virtual:generated-layouts'
 import { routes } from 'vue-router/auto-routes'
-import { useAuthStore } from '@/stores/auth'
+import { registerGlobalMiddlewares } from './registerMiddlewares'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,22 +34,12 @@ router.isReady().then(() => {
   localStorage.removeItem('vuetify:dynamic-reload')
 })
 
-// Set up global navigation guards
-router.beforeEach((to, from, next) => {
-  const auth = useAuthStore()
-  if (to.meta.auth && !auth.isAuthenticated) {
-    return next('/login')
-  }
-
-  if (to.meta.auth === false && auth.isAuthenticated) {
-    return next('/dashboard')
-  }
-  next()
-})
+// Register global middlewares
+registerGlobalMiddlewares(router)
 
 // Set up router title changes
 router.afterEach((to) => {
-  const defaultTitle = "MyForm Vue"
+  const defaultTitle = 'MyForm Vue'
   const pageTitle = to.meta?.title
   document.title = pageTitle
     ? `${pageTitle} | ${defaultTitle}`

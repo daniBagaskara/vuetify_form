@@ -1,171 +1,90 @@
 <template>
-  <v-app>
-    <!-- Navbar dengan desain yang lebih modern -->
-    <v-app-bar flat color="white" elevation="0" class="border-bottom">
-      <v-container>
-        <div class="d-flex align-center justify-space-between">
-          <div class="d-flex align-center">
-            <v-icon color="primary" size="large" class="mr-2"
-              >mdi-checkbox-marked-circle-outline</v-icon
-            >
-            <span class="text-h5 font-weight-bold text-primary">MyForm</span>
+  <!-- Hero section yang ditingkatkan -->
+  <v-main class="hero-bg">
+    <v-container class="fill-height">
+      <v-row class="fill-height align-center">
+        <v-col cols="12" md="6" class="hero-content">
+          <!-- Hero content left -->
+          <div class="accent-text font-weight-medium mb-2">
+            SIMPLIFY FORM CREATION
           </div>
+          <h1 class="hero-title font-weight-bold mb-4">
+            Build Beautiful Forms in
+            <span class="highlighted-text">Minutes</span>
+          </h1>
+          <p class="text-body-1 text-medium-emphasis mb-8">
+            Collect information, gather feedback, and manage registrations with
+            our intuitive form builder.
+            <span class="text-primary">10x faster</span> than traditional tools.
+          </p>
 
-          <div class="d-none d-md-flex align-center">
-            <v-btn variant="text" class="font-weight-medium mx-3"
-              >Features</v-btn
-            >
-            <v-btn variant="text" class="font-weight-medium mx-3"
-              >Templates</v-btn
-            >
-            <v-btn variant="text" class="font-weight-medium mx-3"
-              >Pricing</v-btn
-            >
-            <v-btn variant="text" class="font-weight-medium mx-3"
-              >Contact</v-btn
-            >
+          <div class="d-flex flex-wrap gap-3">
             <v-btn
               color="primary"
-              variant="elevated"
-              class="ml-6 text-none font-weight-bold"
+              size="large"
               rounded="pill"
-              elevation="0"
+              elevation="1"
+              class="text-none font-weight-bold"
               :to="{ path: '/register' }"
             >
-              Get Started <v-icon class="ml-1">mdi-arrow-right</v-icon>
+              Start Building <v-icon class="ml-2">mdi-arrow-right</v-icon>
+            </v-btn>
+
+            <v-btn
+              variant="outlined"
+              color="primary"
+              size="large"
+              rounded="pill"
+              class="text-none font-weight-bold"
+            >
+              <v-icon class="mr-2">mdi-play</v-icon> Watch Demo
             </v-btn>
           </div>
+        </v-col>
 
-          <v-app-bar-nav-icon
-            class="d-md-none"
-            @click="drawer = !drawer"
-          ></v-app-bar-nav-icon>
-        </div>
-      </v-container>
-    </v-app-bar>
-
-    <!-- Mobile menu -->
-    <v-navigation-drawer v-model="drawer" temporary>
-      <v-list>
-        <v-list-item
-          prepend-icon="mdi-view-dashboard-outline"
-          title="Features"
-        ></v-list-item>
-        <v-list-item
-          prepend-icon="mdi-palette-outline"
-          title="Templates"
-        ></v-list-item>
-        <v-list-item
-          prepend-icon="mdi-currency-usd"
-          title="Pricing"
-        ></v-list-item>
-        <v-list-item
-          prepend-icon="mdi-email-outline"
-          title="Contact"
-        ></v-list-item>
-        <v-divider class="my-3"></v-divider>
-        <v-list-item>
-          <v-btn
-            color="primary"
-            block
-            variant="elevated"
-            rounded="pill"
-            class="text-none font-weight-bold"
-          >
-            Get Started <v-icon class="ml-1">mdi-arrow-right</v-icon>
-          </v-btn>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-
-    <!-- Hero section yang ditingkatkan -->
-    <v-main class="hero-bg">
-      <v-container class="fill-height">
-        <v-row class="fill-height align-center">
-          <v-col cols="12" md="6" class="hero-content">
-            <!-- Hero content left -->
-            <div class="accent-text font-weight-medium mb-2">
-              SIMPLIFY FORM CREATION
-            </div>
-            <h1 class="hero-title font-weight-bold mb-4">
-              Build Beautiful Forms in
-              <span class="highlighted-text">Minutes</span>
-            </h1>
-            <p class="text-body-1 text-medium-emphasis mb-8">
-              Collect information, gather feedback, and manage registrations
-              with our intuitive form builder.
-              <span class="text-primary">10x faster</span> than traditional
-              tools.
-            </p>
-
-            <div class="d-flex flex-wrap gap-3">
-              <v-btn
-                color="primary"
-                size="large"
-                rounded="pill"
-                elevation="1"
-                class="text-none font-weight-bold"
-                :to="{ path: '/register' }"
-              >
-                Start Building <v-icon class="ml-2">mdi-arrow-right</v-icon>
-              </v-btn>
-
-              <v-btn
-                variant="outlined"
-                color="primary"
-                size="large"
-                rounded="pill"
-                class="text-none font-weight-bold"
-              >
-                <v-icon class="mr-2">mdi-play</v-icon> Watch Demo
-              </v-btn>
-            </div>
-          </v-col>
-
-          <v-col
-            cols="12"
-            md="6"
-            class="d-none d-md-flex align-center justify-center position-relative"
-          >
-            <!-- Hero image right -->
-            <div class="hero-image-container">
-              <div class="hero-image-bg"></div>
-              <div class="form-preview elevation-10">
-                <div class="form-preview-header">
-                  <div class="form-preview-title">Event Registration</div>
+        <v-col
+          cols="12"
+          md="6"
+          class="d-none d-md-flex align-center justify-center position-relative"
+        >
+          <!-- Hero image right -->
+          <div class="hero-image-container">
+            <div class="hero-image-bg"></div>
+            <div class="form-preview elevation-10">
+              <div class="form-preview-header">
+                <div class="form-preview-title">Event Registration</div>
+              </div>
+              <div class="form-preview-body">
+                <div class="form-field mb-4">
+                  <div class="form-label">Full Name</div>
+                  <div class="form-input"></div>
                 </div>
-                <div class="form-preview-body">
-                  <div class="form-field mb-4">
-                    <div class="form-label">Full Name</div>
-                    <div class="form-input"></div>
+                <div class="form-field mb-4">
+                  <div class="form-label">Email Address</div>
+                  <div class="form-input"></div>
+                </div>
+                <div class="form-field">
+                  <div class="form-label">Ticket Type</div>
+                  <div class="form-radio-group">
+                    <div class="form-radio"></div>
+                    <div class="form-radio-label">Standard</div>
                   </div>
-                  <div class="form-field mb-4">
-                    <div class="form-label">Email Address</div>
-                    <div class="form-input"></div>
+                  <div class="form-radio-group">
+                    <div class="form-radio"></div>
+                    <div class="form-radio-label">Premium</div>
                   </div>
-                  <div class="form-field">
-                    <div class="form-label">Ticket Type</div>
-                    <div class="form-radio-group">
-                      <div class="form-radio"></div>
-                      <div class="form-radio-label">Standard</div>
-                    </div>
-                    <div class="form-radio-group">
-                      <div class="form-radio"></div>
-                      <div class="form-radio-label">Premium</div>
-                    </div>
-                    <div class="form-radio-group">
-                      <div class="form-radio"></div>
-                      <div class="form-radio-label">VIP</div>
-                    </div>
+                  <div class="form-radio-group">
+                    <div class="form-radio"></div>
+                    <div class="form-radio-label">VIP</div>
                   </div>
                 </div>
               </div>
             </div>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-main>
-  </v-app>
+          </div>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-main>
 </template>
 
 <script setup>
