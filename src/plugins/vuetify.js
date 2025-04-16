@@ -31,6 +31,8 @@ export default createVuetify({
           onPrimary: "#ffffff", // Teks di atas warna primary
           secondary: "#64748b", // Abu-abu kebiruan
           onSecondary: "#ffffff",
+          accent: "#3b82f6", // Biru modern (Tailwind style)
+          onAccent: "#ffffff",
           error: "#ef4444", // Merah soft
           success: "#22c55e", // Hijau stabil
           warning: "#f59e0b", // Kuning orange

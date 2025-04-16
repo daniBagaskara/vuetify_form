@@ -1,279 +1,224 @@
+<route lang="yaml">
+meta:
+  layout: newDefault
+  title: Home
+  auth: false
+</route>
 <template>
-  <!-- Hero section yang ditingkatkan -->
-  <v-main class="hero-bg">
-    <v-container class="fill-height">
-      <v-row class="fill-height align-center">
-        <v-col cols="12" md="6" class="hero-content">
-          <!-- Hero content left -->
-          <div class="accent-text font-weight-medium mb-2">
-            SIMPLIFY FORM CREATION
-          </div>
-          <h1 class="hero-title font-weight-bold mb-4">
-            Build Beautiful Forms in
-            <span class="highlighted-text">Minutes</span>
-          </h1>
-          <p class="text-body-1 text-medium-emphasis mb-8">
-            Collect information, gather feedback, and manage registrations with
-            our intuitive form builder.
-            <span class="text-primary">10x faster</span> than traditional tools.
-          </p>
+  <v-app>
+    <!-- Navbar (Tidak Berubah) -->
+    <v-app-bar color="white" flat elevation="0" class="px-4 px-md-8">
+      <v-container class="d-flex align-center justify-space-between">
+        <!-- Logo -->
+        <v-toolbar-title class="text-h6 font-weight-bold text-primary">
+          <v-icon left class="mr-2">mdi-form-textbox</v-icon>
+          <!-- Logo Text -->
+          MyForm
+        </v-toolbar-title>
 
-          <div class="d-flex flex-wrap gap-3">
-            <v-btn
-              color="primary"
-              size="large"
-              rounded="pill"
-              elevation="1"
-              class="text-none font-weight-bold"
-              :to="{ path: '/register' }"
-            >
-              Start Building <v-icon class="ml-2">mdi-arrow-right</v-icon>
+        <!-- Navigation Links -->
+        <div class="d-none d-md-flex align-center">
+          <v-btn text class="text-capitalize mx-2">Contact</v-btn>
+        </div>
+
+        <!-- Login & Signup Buttons -->
+        <div class="d-none d-md-flex align-center">
+          <v-btn outlined color="primary" class="mr-3 text-capitalize">
+            Login
+          </v-btn>
+          <v-btn color="primary" class="text-capitalize">Sign Up</v-btn>
+        </div>
+
+        <!-- Mobile Menu Icon -->
+        <v-app-bar-nav-icon
+          class="d-md-none"
+          @click="drawer = !drawer"
+        ></v-app-bar-nav-icon>
+      </v-container>
+    </v-app-bar>
+
+    <!-- Mobile Drawer (Tidak Berubah) -->
+    <v-navigation-drawer v-model="drawer" temporary right app>
+      <v-list nav dense>
+        <v-list-item-group>
+          <v-list-item>
+            <v-btn block text class="text-capitalize">Contact</v-btn>
+          </v-list-item>
+          <v-list-item>
+            <v-btn block outlined color="primary" class="text-capitalize mb-2">
+              Login
             </v-btn>
+          </v-list-item>
+          <v-list-item>
+            <v-btn block color="primary" class="text-capitalize">Sign Up</v-btn>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
 
-            <v-btn
-              variant="outlined"
-              color="primary"
-              size="large"
-              rounded="pill"
-              class="text-none font-weight-bold"
-            >
-              <v-icon class="mr-2">mdi-play</v-icon> Watch Demo
-            </v-btn>
-          </div>
-        </v-col>
-
-        <v-col
-          cols="12"
-          md="6"
-          class="d-none d-md-flex align-center justify-center position-relative"
-        >
-          <!-- Hero image right -->
-          <div class="hero-image-container">
-            <div class="hero-image-bg"></div>
-            <div class="form-preview elevation-10">
-              <div class="form-preview-header">
-                <div class="form-preview-title">Event Registration</div>
-              </div>
-              <div class="form-preview-body">
-                <div class="form-field mb-4">
-                  <div class="form-label">Full Name</div>
-                  <div class="form-input"></div>
-                </div>
-                <div class="form-field mb-4">
-                  <div class="form-label">Email Address</div>
-                  <div class="form-input"></div>
-                </div>
-                <div class="form-field">
-                  <div class="form-label">Ticket Type</div>
-                  <div class="form-radio-group">
-                    <div class="form-radio"></div>
-                    <div class="form-radio-label">Standard</div>
-                  </div>
-                  <div class="form-radio-group">
-                    <div class="form-radio"></div>
-                    <div class="form-radio-label">Premium</div>
-                  </div>
-                  <div class="form-radio-group">
-                    <div class="form-radio"></div>
-                    <div class="form-radio-label">VIP</div>
-                  </div>
-                </div>
-              </div>
+    <!-- Hero Section -->
+    <v-main class="hero">
+      <v-container class="fill-height">
+        <v-row align="center" justify="center">
+          <v-col cols="12" md="6" class="pa-4">
+            <!-- Heading dengan gradient dari Vuetify -->
+            <div class="mb-4">
+              <h1 class="text-h4 text-md-h3 font-weight-bold">
+                <span class="text-primary">Effortless Forms,</span>
+                <span class="text-secondary"> Powerful Results</span>
+              </h1>
             </div>
-          </div>
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-main>
+
+            <p class="text-subtitle-1 text-grey text-darken-2 mb-6">
+              Build beautiful, responsive forms in minutes. MyForm makes data
+              collection simple and insightful.
+            </p>
+
+            <!-- Button dengan icon -->
+            <div class="d-flex justify-start">
+              <v-btn
+                x-large
+                color="primary"
+                class="mr-4 text-capitalize"
+                elevation="2"
+              >
+                <v-icon left>mdi-rocket-launch</v-icon>
+                Get Started
+              </v-btn>
+              <v-btn
+                x-large
+                variant="outlined"
+                color="primary"
+                class="text-capitalize"
+              >
+                <v-icon left>mdi-information-outline</v-icon>
+                Learn More
+              </v-btn>
+            </div>
+
+            <!-- Stats dengan cards -->
+            <v-row class="mt-6">
+              <v-col cols="4">
+                <v-card flat class="text-center py-2" color="primary lighten-5">
+                  <div class="text-h5 font-weight-bold primary--text">10k+</div>
+                  <div class="caption grey--text">Users</div>
+                </v-card>
+              </v-col>
+              <v-col cols="4">
+                <v-card
+                  flat
+                  class="text-center py-2"
+                  color="secondary lighten-5"
+                >
+                  <div class="text-h5 font-weight-bold secondary--text">
+                    98%
+                  </div>
+                  <div class="caption grey--text">Satisfaction</div>
+                </v-card>
+              </v-col>
+              <v-col cols="4">
+                <v-card flat class="text-center py-2 text-accent">
+                  <div class="text-h5 font-weight-bold accent--text">24/7</div>
+                  <div class="caption grey--text">Support</div>
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-col>
+
+          <v-col cols="12" md="6" class="pa-4">
+            <!-- Form Card -->
+            <v-card elevation="4" rounded="lg">
+              <v-card-title class="headline">
+                <v-icon color="primary" class="mr-2">mdi-form-select</v-icon>
+                Simple Contact Form
+              </v-card-title>
+
+              <v-card-text>
+                <v-text-field
+                  label="Your Name"
+                  outlined
+                  dense
+                  class="mb-2"
+                  prepend-inner-icon="mdi-account-outline"
+                ></v-text-field>
+                <v-text-field
+                  label="Your Email"
+                  outlined
+                  dense
+                  class="mb-2"
+                  prepend-inner-icon="mdi-email-outline"
+                ></v-text-field>
+                <v-textarea
+                  label="Message"
+                  outlined
+                  dense
+                  rows="3"
+                  prepend-inner-icon="mdi-message-text-outline"
+                ></v-textarea>
+              </v-card-text>
+
+              <v-card-actions class="pa-4">
+                <v-btn color="primary" elevation="1">
+                  <v-icon left>mdi-send</v-icon>
+                  Submit
+                </v-btn>
+                <v-spacer></v-spacer>
+                <v-btn icon color="primary lighten-3">
+                  <v-icon>mdi-check-circle</v-icon>
+                </v-btn>
+                <v-btn icon color="primary lighten-3">
+                  <v-icon>mdi-shield-check</v-icon>
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-col>
+        </v-row>
+
+        <!-- Bottom decorative element -->
+        <v-row>
+          <v-col cols="12">
+            <div class="text-center">
+              <v-chip
+                small
+                outlined
+                color="primary"
+                class="mx-1"
+                v-for="n in 5"
+                :key="n"
+              >
+                <v-icon x-small left v-if="n === 1">mdi-star</v-icon>
+                <v-icon x-small left v-else-if="n === 3">mdi-heart</v-icon>
+                <v-icon x-small left v-else-if="n === 5">mdi-thumb-up</v-icon>
+              </v-chip>
+            </div>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
-<script setup>
-import { ref } from "vue";
-
-// Mobile navigation state
-const drawer = ref(false);
+<script>
+export default {
+  data() {
+    return {
+      drawer: false, // Controls the mobile navigation drawer
+    };
+  },
+};
 </script>
 
 <style scoped>
-.hero-bg {
-  background: linear-gradient(160deg, #f9fbff 0%, #f0f4ff 100%);
-  position: relative;
-  overflow: hidden;
-}
-
-.hero-bg::before {
-  content: "";
-  position: absolute;
-  width: 600px;
-  height: 600px;
-  border-radius: 50%;
+.hero {
+  background: #fff;
   background: linear-gradient(
-    45deg,
-    rgba(79, 70, 229, 0.03) 0%,
-    rgba(79, 70, 229, 0.08) 100%
+    180deg,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(201, 212, 245, 1) 100%
   );
-  top: -200px;
-  right: -100px;
 }
 
-.hero-bg::after {
-  content: "";
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  background: linear-gradient(
-    45deg,
-    rgba(79, 70, 229, 0.03) 0%,
-    rgba(79, 70, 229, 0.08) 100%
-  );
-  bottom: -100px;
-  left: 10%;
-}
-
-.fill-height {
-  min-height: calc(100vh - 64px);
-}
-
-.hero-title {
-  font-size: 3.5rem;
-  line-height: 1.1;
-  letter-spacing: -1px;
-}
-
-.highlighted-text {
-  color: #4f46e5;
-  position: relative;
-}
-
-.highlighted-text::after {
-  content: "";
-  position: absolute;
-  bottom: 6px;
-  left: 0;
-  width: 100%;
-  height: 8px;
-  background-color: rgba(79, 70, 229, 0.2);
-  z-index: -1;
-}
-
-.accent-text {
-  color: #4f46e5;
-  letter-spacing: 1.5px;
-  font-size: 0.875rem;
-}
-
-.gap-3 {
-  gap: 12px;
-}
-
-.gap-6 {
-  gap: 24px;
-}
-
-.hero-image-container {
-  position: relative;
-  width: 100%;
-  height: 460px;
-}
-
-.hero-image-bg {
-  position: absolute;
-  width: 400px;
-  height: 400px;
-  border-radius: 50%;
-  background: linear-gradient(45deg, rgba(79, 70, 229, 0.7) 0%, #4f46e5 100%);
-  bottom: 0;
-  right: 0;
-  z-index: 0;
-}
-
-.form-preview {
-  position: absolute;
-  width: 340px;
-  height: 420px;
-  background: white;
-  border-radius: 12px;
-  overflow: hidden;
-  z-index: 1;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.form-preview-header {
-  background: #4f46e5;
-  padding: 20px;
-  color: white;
-}
-
-.form-preview-title {
-  font-weight: bold;
-  font-size: 1.25rem;
-}
-
-.form-preview-body {
-  padding: 24px;
-}
-
-.form-field {
-  margin-bottom: 16px;
-}
-
-.form-label {
-  font-size: 0.875rem;
-  font-weight: 500;
-  margin-bottom: 6px;
-  color: #374151;
-}
-
-.form-input {
-  height: 40px;
-  background: #f3f4f6;
-  border-radius: 6px;
-}
-
-.form-radio-group {
-  display: flex;
-  align-items: center;
-  margin-bottom: 8px;
-}
-
-.form-radio {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  border: 2px solid #d1d5db;
-  margin-right: 8px;
-}
-
-.form-radio-label {
-  font-size: 0.875rem;
-  color: #374151;
-}
-
-/* Responsive adjustments */
-@media (max-width: 960px) {
-  .hero-title {
-    font-size: 2.5rem;
-  }
-
-  .hero-content {
-    text-align: center;
-    padding: 0 16px;
-  }
-
-  .d-flex.flex-wrap {
-    justify-content: center;
-  }
-
-  .mt-12 {
-    margin-top: 2rem !important;
-    text-align: center;
-  }
-
-  .d-flex.flex-wrap.gap-6 {
-    justify-content: center;
-  }
+.v-app-bar {
+  box-shadow: none !important;
 }
 </style>
