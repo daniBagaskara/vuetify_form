@@ -1,6 +1,6 @@
 <route lang="yaml">
 meta:
-  layout: auth
+  layout: default
   title: Register
   auth: false
 </route>
@@ -17,8 +17,8 @@ meta:
         offset-sm="3"
         offset-md="4"
       >
-        <v-card>
-          <v-toolbar title="Register" color="primary" />
+        <v-card elevation="10">
+          <v-toolbar title="Register" color="white" class="text-primary" />
           <v-card-text>
             <v-form>
               <v-text-field

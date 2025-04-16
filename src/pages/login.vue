@@ -1,6 +1,6 @@
 <route lang="yaml">
 meta:
-  layout: auth
+  layout: default
   title: Login
   auth: false
 </route>
@@ -17,8 +17,8 @@ meta:
         offset-sm="3"
         offset-md="4"
       >
-        <v-card>
-          <v-toolbar title="Login" color="secondary" />
+        <v-card elevation="10">
+          <v-toolbar title="LOGIN" color="white" class="text-secondary" />
           <v-card-text>
             <v-form>
               <v-text-field
